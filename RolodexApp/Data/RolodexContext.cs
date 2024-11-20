@@ -50,8 +50,22 @@ namespace RolodexApp.Data
                     PostalCode = "12345"
                 }
             );
+
+            modelBuilder.Entity<Contact>().HasData(
+                new Contact
+                {
+                    ContactId = 1,
+                    PersonId = 1,
+                    Reason = "Talked about stuff",
+                    LengthOfCall = 120,
+                    ContactedOn = new DateTime()
+                }
+                );
+
+            modelBuilder.Entity<Person>().Navigation(p => p.Contacts).AutoInclude();
         }
 
-        public DbSet<RolodexApp.Models.Person> Person { get; set; } = default!;
+        public DbSet<Person> Person { get; set; } = default!;
+        public DbSet<Contact> Contact { get; set; } = default!;
     }
 }

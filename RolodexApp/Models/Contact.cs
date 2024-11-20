@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RolodexApp.Models
 {
@@ -12,8 +13,12 @@ namespace RolodexApp.Models
 
     public class Contact
     {
+        [Key]
         public int ContactId { get; set; }
+
+        [ForeignKey("Person")]
         public int PersonId { get; set; }
+        
         public string Reason { get; set; }
         public DateTime ContactedOn { get; set; }
         public int LengthOfCall { get; set; } // sec

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RolodexApp.Data;
 
@@ -11,9 +12,11 @@ using RolodexApp.Data;
 namespace RolodexApp.Migrations
 {
     [DbContext(typeof(RolodexContext))]
-    partial class RolodexContextModelSnapshot : ModelSnapshot
+    [Migration("20241120185708_AddedContact")]
+    partial class AddedContact
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,17 +54,6 @@ namespace RolodexApp.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("Contact");
-
-                    b.HasData(
-                        new
-                        {
-                            ContactId = 1,
-                            ContactedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LengthOfCall = 120,
-                            PersonId = 1,
-                            Reason = "Talked about stuff",
-                            Response = 0
-                        });
                 });
 
             modelBuilder.Entity("RolodexApp.Models.Person", b =>
