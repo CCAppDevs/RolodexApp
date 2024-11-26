@@ -23,16 +23,35 @@ namespace RolodexApp.Controllers
 
         // GET: api/People
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
+        public async Task<ActionResult<IEnumerable<PersonDTO>>> GetPerson()
         {
-            return await _context.Person.ToListAsync();
+            return await _context.Person
+                .Select(p => new PersonDTO {
+                    PersonId = p.PersonId,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Email = p.Email,
+                    PhoneNumber = p.PhoneNumber,
+                    Contacts = p.Contacts
+                })
+                .ToListAsync();
         }
 
         // GET: api/People/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(int id)
+        public async Task<ActionResult<PersonDTO>> GetPerson(int id)
         {
-            var person = await _context.Person.FindAsync(id);
+            var person = await _context.Person
+                .Where(p => p.PersonId == id)
+                .Select(p => new PersonDTO {
+                    // our map goes here
+                    PersonId = p.PersonId,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Email = p.Email,
+                    PhoneNumber = p.PhoneNumber,
+                    Contacts = p.Contacts
+                }).SingleOrDefaultAsync();
 
             if (person == null)
             {
