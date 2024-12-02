@@ -1,8 +1,10 @@
-﻿
+
 using RolodexApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RolodexApp.Data;
+using Microsoft.AspNetCore.Identity;
+using RolodexApp.Areas.Identity.Data;
 
 namespace RolodexApp
 {
@@ -13,6 +15,10 @@ namespace RolodexApp
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<RolodexContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("RolodexContext") ?? throw new InvalidOperationException("Connection string 'RolodexContext' not found.")));
+
+            builder.Services.AddDefaultIdentity<RolodexUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<RolodexContext>();
 
             // Add services to the container.
 
@@ -32,10 +38,13 @@ namespace RolodexApp
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
+            app.MapRazorPages();
 
             app.Run();
         }

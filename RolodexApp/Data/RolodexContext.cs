@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RolodexApp.Areas.Identity.Data;
 using RolodexApp.Models;
 
 namespace RolodexApp.Data
 {
-    public class RolodexContext : DbContext
+    public class RolodexContext : IdentityDbContext<RolodexUser>
     {
         public RolodexContext (DbContextOptions<RolodexContext> options)
             : base(options)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RolodexApp.Data;
 
@@ -11,9 +12,11 @@ using RolodexApp.Data;
 namespace RolodexApp.Migrations
 {
     [DbContext(typeof(RolodexContext))]
-    partial class RolodexContextModelSnapshot : ModelSnapshot
+    [Migration("20241127190415_AddedIdentity")]
+    partial class AddedIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,6 +182,7 @@ namespace RolodexApp.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FavoriteColor")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
