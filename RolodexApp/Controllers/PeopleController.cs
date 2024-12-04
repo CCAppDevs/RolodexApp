@@ -25,6 +25,7 @@ namespace RolodexApp.Controllers
 
         // GET: api/People
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<PersonDTO>>> GetPerson()
         {
             return await _context.Person
@@ -41,6 +42,7 @@ namespace RolodexApp.Controllers
 
         // GET: api/People/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<PersonDTO>> GetPerson(int id)
         {
             var person = await _context.Person
